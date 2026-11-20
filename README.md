@@ -1,37 +1,30 @@
-# Salary Prediction Model 💼
+# Salary Prediction Model
 
-A machine learning project that predicts employee salaries based on historical data, built during an AI/ML internship at IBM (via Edunet Foundation - IBM SkillsBuild, June–July 2025).
+Predicts employee salary from age, years of experience, gender, education level and job title,
+and serves predictions through a small Streamlit web app.
 
-## Overview
+## Results (Salary_Data.csv)
+- Raw records: 6,704 → 1,783 unique records after cleaning (missing values, duplicates,
+  inconsistent education labels, salaries under 5,000 removed)
+- Random Forest on a hidden 20% test set (357 rows): R² = 0.893, RMSE = 17,050, MAE = 11,328
 
-This project processes and analyzes employee salary data to build a predictive model estimating salary based on relevant features such as experience, education, and job role. It compares multiple regression models and evaluates them using standard performance metrics.
+| Model (5-fold cross-validation) | Average error (MAE) | R² |
+|---|---|---|
+| Linear Regression, numbers only | 23,316 | 0.669 |
+| Linear Regression, numbers + words | 15,070 | 0.841 |
+| Random Forest, numbers only | 18,011 | 0.777 |
+| Random Forest, numbers + words | 11,000 | 0.899 |
 
-## Dataset
+## How to run
+```
+pip install pandas scikit-learn joblib streamlit
+python big.py
+streamlit run app.py
+```
 
-- `employee_salary_data.csv` — employee records used for training and evaluation
-- Processed and cleaned 100,000+ records as part of the pipeline, including handling missing values and encoding categorical variables.
+## Files
+- `big.py` – cleaning, model comparison, saves `salary_model.pkl`
+- `app.py` – Streamlit web app
+- `salarypridiction.ipynb`, `employee_salary_data.csv` – first small prototype (10 rows)
 
-## Approach
-
-1. **Data Cleaning & Preparation** — handled missing values, encoded categorical features, and prepared the dataset for modeling.
-2. **Model Training** — trained and compared two regression models:
-   - Linear Regression
-   - Random Forest Regressor
-3. **Evaluation** — assessed model performance using:
-   - RMSE (Root Mean Squared Error)
-   - R² Score
-4. **Prediction Interface** — built a simple UI for real-time salary prediction based on user input.
-
-## Tech Stack
-
-- **Language:** Python
-- **Libraries:** pandas, NumPy, scikit-learn, matplotlib, seaborn
-- **Notebook:** `salaryprediction.ipynb`
-
-## How to Run
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Ankiii03/salary_priction_model.git
-cd salary_priction_model
+![App screenshot](streamlit.png)
